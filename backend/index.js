@@ -1,23 +1,26 @@
+// ✅ Load environment variables FIRST
 require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-// Middleware
+// ✅ Middleware
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/studentDB", {
-  // useNewUrlParser and useUnifiedTopology no longer needed in newer versions
-})
-  .then(() => console.log("✅ Connected to MongoDB"))
+// ✅ Debug: Show the Mongo URI (remove later in production!)
+console.log("🔑 MONGO_URI:", process.env.MONGO_URI);
+
+// ✅ MongoDB Connection using Atlas
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Connected to MongoDB Atlas"))
   .catch((err) => console.error("❌ MongoDB connection failed:", err));
 
-// Schema + Model
+// ✅ Schema + Model
 const studentSchema = new mongoose.Schema({
   name: String,
   age: String,
@@ -26,7 +29,7 @@ const studentSchema = new mongoose.Schema({
 
 const Student = mongoose.model("Student", studentSchema);
 
-// Get All Students
+// ✅ Get All Students
 app.get("/students", async (req, res) => {
   try {
     const students = await Student.find();
@@ -36,7 +39,7 @@ app.get("/students", async (req, res) => {
   }
 });
 
-// Add a Student
+// ✅ Add a Student
 app.post("/students", async (req, res) => {
   const { name, age, course } = req.body;
   try {
@@ -48,7 +51,7 @@ app.post("/students", async (req, res) => {
   }
 });
 
-// Update a Student
+// ✅ Update a Student
 app.put("/students/:id", async (req, res) => {
   const { name, age, course } = req.body;
   try {
@@ -63,7 +66,7 @@ app.put("/students/:id", async (req, res) => {
   }
 });
 
-// Delete a Student
+// ✅ Delete a Student
 app.delete("/students/:id", async (req, res) => {
   try {
     await Student.findByIdAndDelete(req.params.id);
@@ -73,7 +76,7 @@ app.delete("/students/:id", async (req, res) => {
   }
 });
 
-// Start server
+// ✅ Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
