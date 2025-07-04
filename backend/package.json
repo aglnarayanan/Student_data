@@ -17,10 +17,3 @@
     "mongoose": "^8.16.0"
   }
 }
-"dependencies": {
-  "dotenv": "^YOUR_VERSION",
-  "axios": "...",
-  "cors": "...",
-  "express": "...",
-  "mongoose": "..."
-}
