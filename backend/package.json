@@ -12,7 +12,15 @@
   "dependencies": {
     "axios": "^1.10.0",
     "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
     "express": "^5.1.0",
     "mongoose": "^8.16.0"
   }
+}
+"dependencies": {
+  "dotenv": "^YOUR_VERSION",
+  "axios": "...",
+  "cors": "...",
+  "express": "...",
+  "mongoose": "..."
 }
